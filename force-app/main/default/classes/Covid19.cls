@@ -18,6 +18,7 @@ public class Covid19 {
         recuperadosPais++;        
     } 
     //change feature3
+    //new change
     public Static void pacientesPais(){
         System.debug('Numero de casos no Pais é de :' + recuperadosPais);
     }
