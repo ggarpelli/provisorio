@@ -101,6 +101,12 @@ jobs:
           sf scanner run --format sarif --target './**/*.cls' './**/*.js' './**/*.trigger' --category "Design,Best Practices,Error Prone,Performance,Documentation,Code Style,Security" --outfile 'apexScanResults.sarif'
           cd ..
 
+      - name: 'Upload ScanResults artifact'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ApexScanResults
+          path: changed-sources/apexScanResults.sarif
+
       - name: 'Upload SARIF file'
         uses: github/codeql-action/upload-sarif@v3
         with:
