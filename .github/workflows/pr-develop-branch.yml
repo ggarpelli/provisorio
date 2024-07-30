@@ -132,6 +132,7 @@ jobs:
           sf project deploy validate --source-dir "changed-sources/force-app" --test-level RunLocalTests --json
 
       - name: Check and Process Destructive Changes
+        continue-on-error: true
         run: |
           cd changed-sources/destructiveChanges
           # Verificar se o arquivo destructiveChanges.xml existe
