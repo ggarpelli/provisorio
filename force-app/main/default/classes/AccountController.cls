@@ -13,7 +13,7 @@ public class AccountController {
     public static List<Account> getAllAccounts() {
         List<Account> contas = [SELECT Name, Phone FROM Account];
         return contas;
-    }
+    }//last try
 
     public void printAllAccounts() {
         List<Account> printAll = getAllAccounts();
