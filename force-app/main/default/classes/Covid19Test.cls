@@ -29,9 +29,24 @@ public class Covid19Test {
 
     @IsTest
     static void testPacientesPais() {
-        // Testando o método pacientesPais.
+        // Testando o método pacientesPais
+        Test.startTest();
         Covid19.pacientesPais();
+        Test.stopTest();
         // Note que não podemos verificar diretamente o output do System.debug
         // Mas podemos verificar se o método foi chamado sem erros
+    }
+    
+    @IsTest
+    static void testRecuperadosPaisStaticField() {
+        // Testando a alteração do campo estático recuperadosPais
+        Covid19 covid1 = new Covid19(15);
+        System.assertEquals(15, Covid19.recuperadosPais, 'recuperadosPais deve ser 15 após a inicialização do objeto covid1.');
+        
+        Covid19 covid2 = new Covid19(25);
+        System.assertEquals(25, Covid19.recuperadosPais, 'recuperadosPais deve ser 25 após a inicialização do objeto covid2.');
+        
+        covid2.pacientesTratados();
+        System.assertEquals(26, Covid19.recuperadosPais, 'recuperadosPais deve ser 26 após chamar pacientesTratados no objeto covid2.');
     }
 }
