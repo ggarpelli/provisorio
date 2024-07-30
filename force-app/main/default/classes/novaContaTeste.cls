@@ -12,7 +12,7 @@ public class novaContaTeste {
         // Cria um novo contato
         Contact cont = novaConta.newContact();
         
-        // Verifica se o contato foi criado com sucesso
+        // Verifica se o contato foi criado com sucesso só sucesso!
         Contact result = [SELECT Id, FirstName, LastName FROM Contact WHERE Id = :cont.Id LIMIT 1];
         System.assertNotEquals(null, result, 'Contato não encontrado.');
         System.assertEquals('Guilherme', result.FirstName, 'Nome do contato não corresponde.');
