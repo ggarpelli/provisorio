@@ -104,11 +104,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-      - name: 'Generate ScanResults code'
+      - name: Generate ScanResults code
         run: |
-          cd changed-sources/
-          sf scanner run --format csv --target './**/*.cls' './**/*.js' './**/*.trigger' --category "Design,Best Practices,Error Prone,Performance,Documentation,Code Style,Security" --outfile 'ScanResults.csv'
-          cd ..
+            cd changed-sources/
+            # Verifica se há arquivos com as extensões especificadas
+            if ls ./**/*.cls ./**/*.js ./**/*.trigger 1> /dev/null 2>&1; then
+              sf scanner run --format csv --target './**/*.cls' './**/*.js' './**/*.trigger' --category "Design,Best Practices,Error Prone,Performance,Documentation,Code Style,Security" --outfile 'ScanResults.csv'
+            else
+              echo "No files found to scan. Skipping scan."
+            fi
+            cd ..
 
       - name: 'Upload ScanResults artifact'
         uses: actions/upload-artifact@v4
