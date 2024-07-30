@@ -133,26 +133,26 @@ jobs:
 
       - name: Check and Process Destructive Changes
         run: |
-        cd changed-sources/
-        # Verificar se o arquivo destructiveChanges.xml existe
-        if [ -f destructiveChanges.xml ]; then
-          # Obter o tamanho do arquivo em bytes
-          file_size=$(stat -c%s "destructiveChanges.xml")
-          echo "File size: $file_size bytes"
-          
-          # Tamanho padrão conhecido (135 KB)
-          standard_size=$((135 * 1024))
-          
-          # Comparar o tamanho do arquivo com o tamanho padrão
-          if [ "$file_size" -gt "$standard_size" ]; then
-            echo "File size exceeds standard size. Processing destructive changes."
-            # Execute o processo necessário para lidar com as mudanças destrutivas
-            # Por exemplo: `sf destructiveChanges run` ou outro comando
-            sf project deploy validate --metadata-dir "changed-sources/destructiveChanges" --ignore-warnings --json
+          cd changed-sources/
+          # Verificar se o arquivo destructiveChanges.xml existe
+          if [ -f destructiveChanges.xml ]; then
+            # Obter o tamanho do arquivo em bytes
+            file_size=$(stat -c%s "destructiveChanges.xml")
+            echo "File size: $file_size bytes"
+            
+            # Tamanho padrão conhecido (135 KB)
+            standard_size=$((135 * 1024))
+            
+            # Comparar o tamanho do arquivo com o tamanho padrão
+            if [ "$file_size" -gt "$standard_size" ]; then
+              echo "File size exceeds standard size. Processing destructive changes."
+              # Execute o processo necessário para lidar com as mudanças destrutivas
+              # Por exemplo: `sf destructiveChanges run` ou outro comando
+              sf project deploy validate --metadata-dir "changed-sources/destructiveChanges" --ignore-warnings --json
+            else
+              echo "File size is within the standard size. Skipping destructive changes process."
+            fi
           else
-            echo "File size is within the standard size. Skipping destructive changes process."
+            echo "DestructiveChanges.xml file does not exist. Skipping process."
           fi
-        else
-          echo "DestructiveChanges.xml file does not exist. Skipping process."
-        fi
-        cd ..
+          cd ..
