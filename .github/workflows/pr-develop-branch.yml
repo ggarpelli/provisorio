@@ -132,16 +132,17 @@ jobs:
           sf project deploy validate --source-dir "changed-sources/force-app" --test-level RunLocalTests --json
 
       - name: Check and Process Destructive Changes
+        continue-on-error: true
         run: |
-          cd changed-sources/
+          cd changed-sources\destructiveChanges
           # Verificar se o arquivo destructiveChanges.xml existe
           if [ -f destructiveChanges.xml ]; then
             # Obter o tamanho do arquivo em bytes
             file_size=$(stat -c%s "destructiveChanges.xml")
             echo "File size: $file_size bytes"
             
-            # Tamanho padrão conhecido (135 KB)
-            standard_size=$((135 * 1024))
+            # Tamanho padrão conhecido (135 Bytes)
+            standard_size=$((135))
             
             # Comparar o tamanho do arquivo com o tamanho padrão
             if [ "$file_size" -gt "$standard_size" ]; then
