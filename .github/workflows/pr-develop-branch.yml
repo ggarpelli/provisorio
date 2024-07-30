@@ -98,7 +98,7 @@ jobs:
       - name: Executar SFDX Scanner - Relatar achados como comentários
         uses: mitchspano/sfdx-scan-pull-request@v0.1.16
         with:
-          directory: changed-sources
+          scanner-target: "changed-sources/"
           format: "all"
           category: "all"
         env:
