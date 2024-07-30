@@ -12,7 +12,7 @@ public class FitnessTest {
         
         System.debug('Pace :'+ pace.setScale(5));
         System.assertEquals(10.28571, pace, 'Não deu certo o Equals do pace2');
-        
+        //new change
         System.debug('Pace2 :'+ pace2.setScale(5));
         System.assertEquals(0.0000, pace2, 'Não deu certo o Equals do pace2');
         

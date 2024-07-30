@@ -18,6 +18,11 @@ public class Fitness {
             System.debug('Dados de tempo ou distancia incompativel, reveja isso!!');  
         }else{
             //km por min
+            //km por sec
+            //km por hora
+            //min por km
+            //sec por km
+            //hora por km
             pace = tempoMin/distanciaKm;
         }
         return pace.setScale(5);
