@@ -134,7 +134,7 @@ jobs:
       - name: Check and Process Destructive Changes
         continue-on-error: true
         run: |
-          cd changed-sources/destructiveChanges
+          cd changed-sources\destructiveChanges
           # Verificar se o arquivo destructiveChanges.xml existe
           if [ -f destructiveChanges.xml ]; then
             # Obter o tamanho do arquivo em bytes
