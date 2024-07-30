@@ -94,24 +94,27 @@ jobs:
 
       - name: Installing SFDX scanner
         run: sf plugins install @salesforce/sfdx-scanner
+
+      - name: Executar SFDX Scanner - Relatar achados como comentários
+        uses: mitchspano/sfdx-scan-pull-request@v0.1.16
+        with:
+          directory: changed-sources
+          format: "all"
+          category: "all"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-      - name: 'Scan code'
+      - name: 'Generate ScanResults code'
         run: |
           cd changed-sources/
-          sf scanner run --format sarif --target './**/*.cls' './**/*.js' './**/*.trigger' --category "Design,Best Practices,Error Prone,Performance,Documentation,Code Style,Security" --outfile 'apexScanResults.sarif'
+          sf scanner run --format csv --target './**/*.cls' './**/*.js' './**/*.trigger' --category "Design,Best Practices,Error Prone,Performance,Documentation,Code Style,Security" --outfile 'ScanResults.csv'
           cd ..
 
       - name: 'Upload ScanResults artifact'
         uses: actions/upload-artifact@v4
         with:
-          name: ApexScanResults
-          path: changed-sources/apexScanResults.sarif
-
-      - name: 'Upload SARIF file'
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: changed-sources/apexScanResults.sarif
-          token: ${{ secrets.GITHUB_TOKEN }}
+          name: ScanResults
+          path: changed-sources/ScanResults.csv
 
       - name: 'Validate Deployment to Org - run specified tests'
         if: ${{ env.APEX_TESTS != 'all' }}
