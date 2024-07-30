@@ -29,7 +29,7 @@ public class Covid19Test {
 
     @IsTest
     static void testPacientesPais() {
-        // Testando o método pacientesPais
+        // Testando o método pacientesPais.
         Covid19.pacientesPais();
         // Note que não podemos verificar diretamente o output do System.debug
         // Mas podemos verificar se o método foi chamado sem erros
