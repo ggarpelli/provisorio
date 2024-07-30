@@ -131,5 +131,21 @@ jobs:
         run: |
           sf project deploy validate --source-dir "changed-sources/force-app" --test-level RunLocalTests --json
 
-      - name: 'Deploy destructive changes (if any)'
-        run: sf project deploy validate --metadata-dir "changed-sources/destructiveChanges" --ignore-warnings --json
+      - name: Check and Process Destructive Changes
+        run: |
+          cd changed-sources/
+          # Contar arquivos na pasta
+          file_count=$(ls | wc -l)
+          
+          # Contar arquivos específicos
+          specific_files_count=$(ls | grep -E 'destructiveChanges.xml|package.xml' | wc -l)
+          
+          # Se o número total de arquivos for maior do que os arquivos específicos, execute a ação
+          if [ "$file_count" -gt "$specific_files_count" ]; then
+            echo "More files found. Running destructive changes process."
+            # Coloque o comando ou script para processar destructiveChanges aqui
+            sf project deploy validate --metadata-dir "changed-sources/destructiveChanges" --ignore-warnings --json
+          else
+            echo "Only specific files found. Skipping destructive changes process."
+          fi
+          cd ..
