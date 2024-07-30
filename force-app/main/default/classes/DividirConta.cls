@@ -9,7 +9,7 @@ public class DividirConta {
         Integer umaFatia = 8; //para consumo de 1.
         Integer duasOuTres = 7; //para consumo de 2 ou 3.
         Integer quatroFatias = 6; //para consumo de +3.
-        
+        //test
         //Utilizando if - else para imprimir pedaços quando for >0 e !=1, ou pedaço quando foi 1 ou 0 test
         if ((numeroPedacos!=1)&&(numeroPedacos >0)){
             //Ternary operator

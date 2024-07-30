@@ -6,7 +6,7 @@ public class AccountControllerTest {
         Account acc1 = new Account();
         acc1.Name = 'Test Account';
         AccountController.insertAccount(acc1); 
-    }
+    }//test
     
     @IsTest
     public static void insertAccountsTest(){

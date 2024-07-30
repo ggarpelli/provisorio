@@ -5,7 +5,7 @@ public class DividirContaTest {
         
         Integer pedacos = 18;
         Integer pecado = 0;
-        //test
+        //test2
         
         DividirConta chamaClasse = new DividirConta();
         chamaClasse.contaIndividual(pedacos);
