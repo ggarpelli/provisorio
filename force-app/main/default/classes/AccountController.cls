@@ -12,7 +12,7 @@ public class AccountController {
         List<Account> contas = [SELECT Name, Phone FROM Account];
         return contas;
     }//test
-    
+    //other change  
     public void printAllAccounts(){
         List<Account> printAll = getAllAccounts();
         
