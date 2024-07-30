@@ -133,19 +133,26 @@ jobs:
 
       - name: Check and Process Destructive Changes
         run: |
-          cd changed-sources/
-          # Contar arquivos na pasta
-          file_count=$(ls | wc -l)
+        cd changed-sources/
+        # Verificar se o arquivo destructiveChanges.xml existe
+        if [ -f destructiveChanges.xml ]; then
+          # Obter o tamanho do arquivo em bytes
+          file_size=$(stat -c%s "destructiveChanges.xml")
+          echo "File size: $file_size bytes"
           
-          # Contar arquivos específicos
-          specific_files_count=$(ls | grep -E 'destructiveChanges.xml|package.xml' | wc -l)
+          # Tamanho padrão conhecido (135 KB)
+          standard_size=$((135 * 1024))
           
-          # Se o número total de arquivos for maior do que os arquivos específicos, execute a ação
-          if [ "$file_count" -gt "$specific_files_count" ]; then
-            echo "More files found. Running destructive changes process."
-            # Coloque o comando ou script para processar destructiveChanges aqui
+          # Comparar o tamanho do arquivo com o tamanho padrão
+          if [ "$file_size" -gt "$standard_size" ]; then
+            echo "File size exceeds standard size. Processing destructive changes."
+            # Execute o processo necessário para lidar com as mudanças destrutivas
+            # Por exemplo: `sf destructiveChanges run` ou outro comando
             sf project deploy validate --metadata-dir "changed-sources/destructiveChanges" --ignore-warnings --json
           else
-            echo "Only specific files found. Skipping destructive changes process."
+            echo "File size is within the standard size. Skipping destructive changes process."
           fi
-          cd ..
+        else
+          echo "DestructiveChanges.xml file does not exist. Skipping process."
+        fi
+        cd ..
